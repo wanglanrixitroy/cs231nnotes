@@ -1,0 +1,1 @@
+notes for cs321n
