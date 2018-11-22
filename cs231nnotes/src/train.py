@@ -28,6 +28,9 @@ def get_data():
     dataloaders = {'train':train_loader, 'valid':validation_loader, 'test':test_loader}
     return dataloaders
 
+def myMultiLabelCrossEntropyLoss(output, labels):
+    
+
 def get_optimizer(param, learning_rate, optim_name='SGD', weight_decay=5e-2, nesterov=True):
     if optim_name == 'Adam':
         optimizer = optim.Adam(param, lr=learning_rate, weight_decay=weight_decay)
@@ -99,7 +102,6 @@ def train(num_epoch):
                 # forward
                 outputs = resmodel(inputs)
                 _, preds = torch.max(outputs.data, 1)
-
                 loss = criterion(outputs, labels)
 
                 # backward + optimize only if in training phase
@@ -108,6 +110,7 @@ def train(num_epoch):
                     optimizer.step()
 
                 # statistics
+                running_loss += loss.data[0]
                 losses.append(loss.data.mean())
 
             epoch_loss = np.mean(losses)
